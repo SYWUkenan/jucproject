@@ -1,4 +1,4 @@
-package com.kuangshenshuo.juc.jucproject.exercies;
+package com.kuangshenshuo.juc.jucproject.exercises;
 
 import java.util.concurrent.locks.ReentrantLock;
 
