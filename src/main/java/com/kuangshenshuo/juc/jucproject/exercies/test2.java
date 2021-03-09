@@ -11,22 +11,40 @@ public class test2 {
     public static void main(String[] args) {
         TicketNumber ticketNumber = new TicketNumber(20);
 
-        new Thread(()->{
-            ticketNumber.sale();
-
-        },"A").start();
 
 
-        new Thread(()->{
-            ticketNumber.sale();
+            new Thread(()->{
+                try {
+                    ticketNumber.sale();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-        },"B").start();
+            },"A").start();
 
 
-        new Thread(()->{
-            ticketNumber.sale();
 
-        },"C").start();
+            new Thread(()->{
+                try {
+                    ticketNumber.sale();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            },"B").start();
+
+
+            new Thread(()->{
+                try {
+                    ticketNumber.sale();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            },"C").start();
+
+
+
 
     }
 }
@@ -39,9 +57,11 @@ class TicketNumber{
 
     ReentrantLock lock = new ReentrantLock();
 
-    public void sale(){
-        lock.lock();
+    public void sale() throws Exception {
+
+
         while(number>0){
+            lock.lock();
 
             try {
 
@@ -53,8 +73,6 @@ class TicketNumber{
 
                     System.out.println("线程："+Thread.currentThread().getName()+" 卖了1张票,剩余:"+ --number+"票");
 
-                    Thread.sleep(1000);
-
 
                 }
 
@@ -62,6 +80,9 @@ class TicketNumber{
                 e.printStackTrace();
             } finally {
                 lock.unlock();
+                Thread.sleep(1000);
+
+
             }
 
 
